@@ -85,3 +85,17 @@ class Ledger:
             return self._index[iban]
         except KeyError:
             raise EntityNotFound(iban) from None
+
+    # ЗАВДАННЯ 4. Підтримка арифметичних операцій
+    def __add__(self, other: object) -> "Ledger":
+        if not isinstance(other, Ledger):
+            return NotImplemented
+        new_ledger = Ledger(self._accounts.copy())
+        for acc in other:
+            new_ledger.add_account(acc)
+        return new_ledger
+
+    def __radd__(self, other: object) -> "Ledger":
+        if other == 0:
+            return Ledger(self._accounts.copy())
+        return NotImplemented

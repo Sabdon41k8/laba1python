@@ -47,9 +47,33 @@ class Money:
     def __hash__(self) -> int:
         return hash((self.currency, self.amount))
 
+    # ЗАВДАННЯ 4 підтримка арифметичних операцій
+    def __add__(self, other: object) -> "Money":
+        if not isinstance(other, Money):
+            return NotImplemented
+        if self.currency != other.currency:
+            raise ValueError(f"Різні валюти: {self.currency} та {other.currency}")
+        return Money(self.currency, self.amount + other.amount)
+
+    def __sub__(self, other: object) -> "Money":
+        if not isinstance(other, Money):
+            return NotImplemented
+        if self.currency != other.currency:
+            raise ValueError(f"Різні валюти: {self.currency} та {other.currency}")
+        return Money(self.currency, self.amount - other.amount)
+
+    def __mul__(self, other: float) -> "Money":
+        if not isinstance(other, (int, float)):
+            return NotImplemented
+        return Money(self.currency, self.amount * other)
+
+    def __rmul__(self, other: float) -> "Money":
+        return self.__mul__(other)
+
 
 # ЗАВДАННЯ 1.2 альтернатива через dataclass
 @dataclass(frozen=True, slots=True)
 class MoneyDataClass:
     currency: str
     amount: float
+
