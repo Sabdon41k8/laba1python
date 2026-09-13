@@ -46,3 +46,10 @@ class Money:
     # ЗАВДАННЯ 1.5 хешування об'єктів
     def __hash__(self) -> int:
         return hash((self.currency, self.amount))
+
+
+# ЗАВДАННЯ 1.2 альтернатива через dataclass
+@dataclass(frozen=True, slots=True)
+class MoneyDataClass:
+    currency: str
+    amount: float
