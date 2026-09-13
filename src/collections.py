@@ -1,7 +1,6 @@
-from typing import Iterator, Union, Any
-from entities import Account
-from errors import EntityNotFound
-from decorators import validated
+from .entities import Account
+from .errors import EntityNotFound
+from .decorators import validated
 
 
 # ЗАВДАННЯ 3.2 клас для ітерації по сторінках

@@ -1,14 +1,15 @@
 import re
 from typing import Any
-from values import ALLOWED_CURRENCIES
+
+from .values import ALLOWED_CURRENCIES
 
 class Account:
     def __init__(self, iban: str, owner: str, balance: float, overdraft: float = 0.0, currency: str = "UAH") -> None:
         if not self._is_valid_iban(iban):
             raise ValueError(f"Невірний IBAN: {iban}")
 
-        self.iban = iban
-        self.currency = currency if currency in ALLOWED_CURRENCIES else "UAH"
+        self._iban = iban
+        self._currency = currency if currency in ALLOWED_CURRENCIES else "UAH"
         self._overdraft = 0.0
         self._balance = 0.0
 
