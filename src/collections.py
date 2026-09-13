@@ -1,6 +1,7 @@
 from typing import Iterator, Union, Any
 from entities import Account
 from errors import EntityNotFound
+from decorators import validated
 
 
 # ЗАВДАННЯ 3.2 клас для ітерації по сторінках
@@ -99,3 +100,11 @@ class Ledger:
         if other == 0:
             return Ledger(self._accounts.copy())
         return NotImplemented
+
+    # ЗАВДАННЯ 5.
+    @validated(amount="positive", currency="one_of:UAH,USD,EUR")
+    def deposit(self, iban: str, amount: float, currency: str) -> None:
+        acc = self.get(iban)
+        if acc.currency != currency:
+            raise ValueError("Валюта поповнення не збігається з валютою рахунку.")
+        acc.balance += amount
